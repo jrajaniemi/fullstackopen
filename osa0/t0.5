@@ -1,0 +1,48 @@
+selain->palvelin: HTTP POST https://fullstack-exampleapp.herokuapp.com/spa
+palvelin->selain: HTTP-koodi 200 OK 
+
+note over selain
+selain parsii HTML-koodin läpi ja
+lataa tyyli- ja javascript-tiedoston
+end note
+selain->palvelin: HTTP GET https://fullstack-exampleapp.herokuapp.com/main.css
+palvelin-->selain: main.css
+selain->palvelin: HTTP GET https://fullstack-exampleapp.herokuapp.com/spa.js
+palvelin-->selain: spa.js
+
+note over selain:
+selain suorittaa spa.js -koodin
+ja lataa data.json tiedoston
+end note
+
+selain->palvelin: HTTP GET https://fullstack-exampleapp.herokuapp.com/data.json
+note right of selain
+xhttp.open("GET", "/data.json", true)
+xhttp.send()
+end note
+palvelin-->selain: [{"content":"HTML is easy","date":"2019-05-23T17:30:31.098Z"}, ...]
+
+note over selain:
+tapahtuman käsittelijä renderöi
+muistiinpanot selaimelle
+xhttp.onreadystatechange = function () {
+  ...
+  redrawNotes()
+}
+end note
+
+note over selain:
+kun käyttäjä täyttää lomakkeen ja painaa save nappia, käynnistyy 
+lomakkeen onSubmit -tapahtumankäsittelijä joka muodostaa JSON-olion, 
+lisää sen notes-taulukkoon ja lähettää palvelimelle
+end note
+
+
+selain->palvelin: HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note_spa
+note right of selain
+  xhttpForPost.open("POST", '/new_note_spa', true)
+  xhttpForPost.setRequestHeader("Content-type", "application/json")
+  xhttpForPost.send(JSON.stringify(note));
+end note
+note over palvelin: Palvelin tallentaa sanoman muistiin
+palvelin->selain: HTTP-koodi 201 CREATED 
