@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-
+/*
 const Hello = ({ name, age }) => {
   const bornYear = () => new Date().getFullYear() - age;
 
@@ -13,17 +13,17 @@ const Hello = ({ name, age }) => {
     </div>
   );
 };
+*/
 
 const App = () => {
-  const nimi = 'Pekka';
-  const ika = 10;
-  return (
-    <div>
-      <h1>Greetings</h1>
-      <Hello name="Arto" age={26 + 10} />
-      <Hello name={nimi} age={ika} />
-    </div>
-  );
+  const [counter, setCounter] = useState(0);
+  setTimeout(() => setCounter(counter + 1), 1000);
+
+  console.log('Rendering...', counter);
+
+  return <div>{counter}</div>;
 };
 
-ReactDOM.render(<App />, document.getElementById('root'));
+let counter = 1;
+
+ReactDOM.render(<App counter={counter} />, document.getElementById('root'));
