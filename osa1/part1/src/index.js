@@ -1,27 +1,30 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-/*
-const Hello = ({ name, age }) => {
-  const bornYear = () => new Date().getFullYear() - age;
 
-  return (
-    <div>
-      <p>
-        Hello {name}, you are {age} years old
-      </p>
-      <p>So you were probably born {bornYear()}</p>
-    </div>
-  );
+const Display = ({ counter }) => {
+  return <div>{counter}</div>;
 };
-*/
+
+const Button = ({ handleClick, text }) => (
+  <button onClick={handleClick}>{text}</button>
+);
 
 const App = () => {
   const [counter, setCounter] = useState(0);
-  setTimeout(() => setCounter(counter + 1), 1000);
 
-  console.log('Rendering...', counter);
+  const setToValue = value => {
+    return () => {
+      setCounter(value);
+    };
+  };
 
-  return <div>{counter}</div>;
+  return (
+    <div>
+      <Display counter={counter} />
+      <Button handleClick={setToValue(counter + 1)} text="plus" />
+      <Button handleClick={setToValue(0)} text="zero" />
+    </div>
+  );
 };
 
 let counter = 1;
