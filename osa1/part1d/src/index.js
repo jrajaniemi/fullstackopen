@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-// Diipa
+
 const History = props => {
   if (props.allClicks.length === 0) {
     return <div>the app is used by pressing the buttons</div>;
@@ -9,8 +9,8 @@ const History = props => {
   return <div>button press history: {props.allClicks.join(' ')}</div>;
 };
 
-const Button = ({ handleClick, text }) => (
-  <button onClick={handleClick}>{text}</button>
+const Button = props => (
+  <button onClick={props.handleClick}>{props.text}</button>
 );
 
 const App = props => {
@@ -32,8 +32,11 @@ const App = props => {
     <div>
       <div>
         {left}
-        <Button onClick={handleLeftClick} text="left" />
-        <Button onClick={handleRightClick} text="right" />
+        <button onClick={handleLeftClick}>Left Test</button>
+        <Button handleClick={handleLeftClick} text="left" />
+        <Button handleClick={handleRightClick} text="right" />
+        <button onClick={handleRightClick}>Right Test</button>
+
         {right}
         <History allClicks={allClicks} />
       </div>
