@@ -6,10 +6,10 @@ const Statistics = props => {
   const { value, text } = props;
   console.log(value, text);
   return (
-    <div className="row">
-      <div className="col-md-4">{text}</div>
-      <div className="col-md-4">{value}</div>
-    </div>
+    <tr>
+      <td>{text}</td>
+      <td>{value}</td>
+    </tr>
   );
 };
 
@@ -46,18 +46,26 @@ const App = props => {
             <Button handleClick={handleBad} text="Bad" />
           </div>
         </div>
-        <Statistics text="Good" value={good} />
-        <Statistics text="Neutral" value={neutral} />
-        <Statistics text="Bad" value={bad} />
-        <Statistics text="All" value={good + neutral + bad} />
-        <Statistics
-          text="Average"
-          value={(good + bad * -1) / (good + neutral + bad)}
-        />
-        <Statistics
-          text="Positive"
-          value={(good * 100) / (good + neutral + bad)}
-        />
+        <div className="row">
+          <div className="col-12">
+            <table>
+              <tbody>
+                <Statistics text="Good" value={good} />
+                <Statistics text="Neutral" value={neutral} />
+                <Statistics text="Bad" value={bad} />
+                <Statistics text="All" value={good + neutral + bad} />
+                <Statistics
+                  text="Average"
+                  value={(good + bad * -1) / (good + neutral + bad)}
+                />
+                <Statistics
+                  text="Positive"
+                  value={(good * 100) / (good + neutral + bad)}
+                />
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     );
   } else {
