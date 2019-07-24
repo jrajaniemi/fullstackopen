@@ -3,34 +3,12 @@ import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 
 const Statistics = props => {
-  const { good, neutral, bad } = props;
+  const { value, text } = props;
 
   return (
-    <div>
-      <div class="row">
-        <div class="col-md-4">Good</div>
-        <div class="col-md-4">{good}</div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">Netral</div>
-        <div class="col-md-4">{neutral}</div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">Bad</div>
-        <div class="col-md-4">{bad}</div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">All</div>
-        <div class="col-md-4">{good + neutral + bad}</div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">Average</div>
-        <div class="col-md-4">{(good + bad * -1) / (good + neutral + bad)}</div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">Positive</div>
-        <div class="col-md-4">{(good * 100) / (good + neutral + bad)}</div>
-      </div>
+    <div class="row">
+      <div class="col-md-4">{text}</div>
+      <div class="col-md-4">{value}</div>
     </div>
   );
 };
@@ -67,7 +45,18 @@ const App = props => {
           <Button handleClick={handleBad} text="Bad" />
         </div>
       </div>
-      <Statistics good={good} neutral={neutral} bad={bad} />
+      <Statistics text="Good" value={good} />
+      <Statistics text="Neutral" value={neutral} />
+      <Statistics text="Bad" value={bad} />
+      <Statistics text="All" value={good + neutral + bad} />
+      <Statistics
+        text="Average"
+        value={(good + bad * -1) / (good + neutral + bad)}
+      />
+      <Statistics
+        text="Positive"
+        value={(good * 100) / (good + neutral + bad)}
+      />
     </div>
   );
 };
