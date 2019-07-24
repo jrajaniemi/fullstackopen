@@ -2,6 +2,39 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 
+const Statistics = props => {
+  const { good, neutral, bad } = props;
+
+  return (
+    <div>
+      <div class="row">
+        <div class="col-md-4">Good</div>
+        <div class="col-md-4">{good}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Netral</div>
+        <div class="col-md-4">{neutral}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Bad</div>
+        <div class="col-md-4">{bad}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">All</div>
+        <div class="col-md-4">{good + neutral + bad}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Average</div>
+        <div class="col-md-4">{(good + bad * -1) / (good + neutral + bad)}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Positive</div>
+        <div class="col-md-4">{(good * 100) / (good + neutral + bad)}</div>
+      </div>
+    </div>
+  );
+};
+
 const Button = props => (
   <button class="btn btn-primary m-1 col-3" onClick={props.handleClick}>
     {props.text}
@@ -34,30 +67,7 @@ const App = props => {
           <Button handleClick={handleBad} text="Bad" />
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-4">Good</div>
-        <div class="col-md-4">{good}</div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">Netral</div>
-        <div class="col-md-4">{neutral}</div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">Bad</div>
-        <div class="col-md-4">{bad}</div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">All</div>
-        <div class="col-md-4">{good + neutral + bad}</div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">Average</div>
-        <div class="col-md-4">{(good + bad * -1) / (good + neutral + bad)}</div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">Positive</div>
-        <div class="col-md-4">{(good * 100) / (good + neutral + bad)}</div>
-      </div>
+      <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
   );
 };
