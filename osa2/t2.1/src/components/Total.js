@@ -1,14 +1,13 @@
 import React from 'react';
 
-const Total = props => {
-  let total = 0;
-  props.total.forEach(i => {
-    total = total + i.exercises;
-  });
+const Total = ({ total }) => {
+  const totalExercises = total.reduce((sum, current) => {
+    return sum + current.exercises;
+  }, 0);
   return (
     <div>
       <p>
-        <strong>Number of exercises {total}</strong>
+        <strong>Number of exercises {totalExercises}</strong>
       </p>
     </div>
   );
