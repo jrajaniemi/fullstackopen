@@ -34,7 +34,7 @@ function App() {
           </div>
         </form>
         <h2>Numbers</h2>
-        <ul>{ persons.map(person => <li>{person.number} ({person.name})</li>)}</ul>
+        <ul>{ persons.map(person => <li key={person.name}>{person.number} ({person.name})</li>)}</ul>
       </div>
       </div>
     </div>
