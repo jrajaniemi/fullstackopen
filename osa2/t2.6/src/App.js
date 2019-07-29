@@ -1,22 +1,27 @@
 import React, {useState} from 'react';
 
 function App() {
-  const [persons, setPersons] = useState([{name: 'Jussi Rajaniemi'}])
+  const [persons, setPersons] = useState([{name: 'Jussi'}])
   const [newName, setNewName] = useState('')
 
   const addName = event => {
     event.preventDefault();
-    console.log(event)
-    const t = persons.concat({
-      name: newName
-    })
-    setPersons(t);
-    setNewName('');
+    const res = persons.find(x => x.name === newName);
+    console.log('Add Name: ', persons.indexOf(res), newName, persons);
+    if(persons.indexOf(res) > -1) {
+      window.alert(`${newName} is already added to phonebook`)
+    } else {
+      const t = persons.concat({
+        name: newName
+      })
+      setPersons(t);
+      setNewName('');  
+    }
+
   }
   
   const handleNameChange = event => {
     console.log(event.target.value)
-
     setNewName(event.target.value)
   }
 
