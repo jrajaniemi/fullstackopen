@@ -9,7 +9,8 @@ const App = props => {
   const notesToShow = showAll
     ? notes
     : notes.filter(note => note.important === true);
-  const rows = () =>
+  
+    const rows = () =>
     notesToShow.map(note => <Note key={note.id} note={note} />);
 
   const addNote = event => {
