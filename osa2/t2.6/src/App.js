@@ -1,5 +1,41 @@
 import React, { useState } from 'react';
 
+const Filter = ({ search, handleSearch }) => {
+  return (
+    <p>
+      filter show with <input value={search} onChange={handleSearch} />
+    </p>
+  );
+};
+
+const Results = ({ rows }) => {
+  return <ul>{rows}</ul>;
+};
+
+const Form = ({
+  addName,
+  newName,
+  handleNameChange,
+  newNumber,
+  handleNumberChange
+}) => {
+  return (
+    <form onSubmit={addName}>
+      <div>
+        Name: <input value={newName} onChange={handleNameChange} />
+      </div>
+      <div>
+        Number: <input value={newNumber} onChange={handleNumberChange} />
+      </div>
+      <div>
+        <button className="btn btn-primary" type="submit">
+          Add
+        </button>
+      </div>
+    </form>
+  );
+};
+
 function App() {
   const [persons, setPersons] = useState([
     { name: 'Maija Rajaniemi', number: '040 123 1234' },
@@ -49,18 +85,20 @@ function App() {
   };
 
   const handleNameChange = event => {
+    event.preventDefault();
     console.log(event.target.value);
     setNewName(event.target.value);
   };
 
   const handleNumberChange = event => {
+    event.preventDefault();
     console.log(event.target.value);
     setNewNumber(event.target.value);
   };
 
   const handleSearch = event => {
-    console.log(event.target.value);
     event.preventDefault();
+    console.log(event.target.value);
     setSearch(event.target.value);
   };
 
@@ -69,23 +107,17 @@ function App() {
       <div className="row">
         <div className="col-12">
           <h1>Phonebook</h1>
-          filter show with <input value={search} onChange={handleSearch} />
+          <Filter search={search} handleSearch={handleSearch} />
           <h2>add a new</h2>
-          <form onSubmit={addName}>
-            <div>
-              Name: <input value={newName} onChange={handleNameChange} />
-            </div>
-            <div>
-              Number: <input value={newNumber} onChange={handleNumberChange} />
-            </div>
-            <div>
-              <button className="btn btn-primary" type="submit">
-                Add
-              </button>
-            </div>
-          </form>
+          <Form
+            addName={addName}
+            newName={newName}
+            handleNameChange={handleNameChange}
+            newNumber={newNumber}
+            handleNumberChange={handleNumberChange}
+          />
           <h2>Numbers</h2>
-          <ul>{rows()}</ul>
+          <Results rows={rows()} />
         </div>
       </div>
     </div>
