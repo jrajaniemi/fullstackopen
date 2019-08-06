@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const Filter = ({ search, handleSearch }) => {
   return (
@@ -37,17 +38,16 @@ const Form = ({
 };
 
 function App() {
-  const [persons, setPersons] = useState([
-    { name: 'Maija Rajaniemi', number: '040 123 1234' },
-    { name: 'Antti Rajaniemi', number: '044 123 1234' },
-    { name: 'Heikki Rajaniemi', number: '045 123 1234' },
-    { name: 'Jani Rajaniemi', number: '046 123 1234' },
-    { name: 'Juha Rajaniemi', number: '050 123 1234' },
-    { name: 'Mika Rajaniemi', number: '051 123 1234' }
-  ]);
+  const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [search, setSearch] = useState('');
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/persons').then(res => {
+      setPersons(res.data);
+    });
+  }, []);
 
   const addName = event => {
     event.preventDefault();
