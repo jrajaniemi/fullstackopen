@@ -21,6 +21,11 @@ function App() {
     setSearch(event.target.value);
   };
 
+  const showCountry = event => {
+    event.preventDefault();
+    setSearch(event.target.value);
+  };
+
   const rows = () => {
     const t = countries.filter(x => new RegExp(search, 'i').test(x.name));
     if (search === '') {
@@ -49,7 +54,16 @@ function App() {
       return (
         <ul>
           {t.map(country => (
-            <li key={country.name}>{country.name}</li>
+            <li className="m-2" key={country.name}>
+              {country.name}{' '}
+              <button
+                className="btn btn-primary btn-sm"
+                value={country.name}
+                onClick={showCountry}
+              >
+                Show
+              </button>
+            </li>
           ))}
         </ul>
       );
