@@ -56,13 +56,16 @@ function App() {
     if (persons.indexOf(res) > -1) {
       window.alert(`${newName} is already added to phonebook`);
     } else {
-      const t = persons.concat({
+      const newPerson = {
         name: newName,
         number: newNumber
+      };
+
+      axios.post('http://localhost:3001/persons', newPerson).then(res => {
+        setPersons(persons.concat(res.data));
+        setNewName('');
+        setNewNumber('');
       });
-      setPersons(t);
-      setNewName('');
-      setNewNumber('');
     }
   };
 
