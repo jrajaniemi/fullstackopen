@@ -138,6 +138,11 @@ function App() {
         })
         .catch(err => {
           console.log('deletePerson ', err);
+          setMessage(name + '  has already been removed from server');
+          setMessageType('danger');
+          setTimeout(() => {
+            setMessage('');
+          }, 5000);
         });
     }
   };
