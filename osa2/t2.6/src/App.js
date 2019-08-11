@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Form from './components/Form';
 import Filter from './components/Filter';
 import Results from './components/Results';
+import Alert from './components/Alerts';
 import personService from './services/persons';
 
 function App() {
@@ -9,6 +10,8 @@ function App() {
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [search, setSearch] = useState('');
+  const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState('success');
 
   useEffect(() => {
     personService
@@ -37,6 +40,11 @@ function App() {
             setPersons(persons.map(p => (p.id !== res.id ? p : res)));
             setNewName('');
             setNewNumber('');
+            setMessage('Added ' + newName);
+            setMessageType('success');
+            setTimeout(() => {
+              setMessage('');
+            }, 5000);
           })
           .catch(err => {
             console.log('updatePerson ', err);
@@ -54,6 +62,11 @@ function App() {
           setPersons(persons.concat(returnedPerson));
           setNewName('');
           setNewNumber('');
+          setMessage('Added ' + newName);
+          setMessageType('success');
+          setTimeout(() => {
+            setMessage('');
+          }, 5000);
         })
         .catch(err => {
           console.log('addName ', err);
@@ -128,6 +141,7 @@ function App() {
     <div className="container">
       <div className="row">
         <div className="col-12">
+          <Alert message={message} messageType={messageType} />
           <h1>Phonebook</h1>
           <Filter search={search} handleSearch={handleSearch} />
           <h2>add a new</h2>
