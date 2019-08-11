@@ -40,7 +40,7 @@ function App() {
             setPersons(persons.map(p => (p.id !== res.id ? p : res)));
             setNewName('');
             setNewNumber('');
-            setMessage('Added ' + newName);
+            setMessage('Updated ' + newName);
             setMessageType('success');
             setTimeout(() => {
               setMessage('');
@@ -130,6 +130,11 @@ function App() {
         .then(() => {
           setPersons(persons.filter(p => p.id !== id));
           console.log('person ', id, ' deleted');
+          setMessage(name + ' removed');
+          setMessageType('success');
+          setTimeout(() => {
+            setMessage('');
+          }, 5000);
         })
         .catch(err => {
           console.log('deletePerson ', err);
