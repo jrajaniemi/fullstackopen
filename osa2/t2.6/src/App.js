@@ -44,9 +44,14 @@ function App() {
   const [search, setSearch] = useState('');
 
   useEffect(() => {
-    personService.getAllPersons().then(allPersons => {
-      setPersons(allPersons);
-    });
+    personService
+      .getAllPersons()
+      .then(allPersons => {
+        setPersons(allPersons);
+      })
+      .catch(err => {
+        console.log('getAllPersons', err);
+      });
   }, []);
 
   const addName = event => {
@@ -60,34 +65,42 @@ function App() {
         name: newName,
         number: newNumber
       };
-      /*
-      axios.post('http://localhost:3001/persons', newPerson).then(res => {
-        setPersons(persons.concat(res.data));
-        setNewName('');
-        setNewNumber('');
-      });
-      */
-      personService.addPerson(newPerson).then(returnedPerson => {
-        setPersons(persons.concat(returnedPerson));
-        setNewName('');
-        setNewNumber('');
-      });
+
+      personService
+        .addPerson(newPerson)
+        .then(returnedPerson => {
+          setPersons(persons.concat(returnedPerson));
+          setNewName('');
+          setNewNumber('');
+        })
+        .catch(err => {
+          console.log('addName ', err);
+        });
     }
   };
 
   const rows = () => {
     if (search === '') {
       return persons.map(person => (
-        <li key={person.name}>
+        <li key={person.id}>
           {person.name} {person.number}
+          <button onClick={() => handleDeleteNumber(person.id, person.name)}>
+            delete
+          </button>
         </li>
       ));
     } else {
       const t = persons.filter(x => new RegExp(search, 'i').test(x.name));
       console.log(t);
       return t.map(person => (
-        <li key={person.name}>
+        <li key={person.id}>
           {person.name} {person.number}
+          <button
+            className="btn btn-primary btn-sm"
+            onClick={() => handleDeleteNumber(person.id, person.name)}
+          >
+            delete
+          </button>
         </li>
       ));
     }
@@ -109,6 +122,21 @@ function App() {
     event.preventDefault();
     console.log(event.target.value);
     setSearch(event.target.value);
+  };
+
+  const handleDeleteNumber = (id, name) => {
+    console.log(id);
+    if (window.confirm('Delete ' + name + '?')) {
+      personService
+        .deletePerson(id)
+        .then(() => {
+          setPersons(persons.filter(p => p.id !== id));
+          console.log('person ', id, ' deleted');
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   };
 
   return (

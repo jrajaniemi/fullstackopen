@@ -1,39 +1,19 @@
 {
   "persons": [
     {
-      "name": "Arto Hellas",
-      "number": "040-123456",
-      "id": 1
+      "name": "Jussi",
+      "number": "1234",
+      "id": 10
     },
     {
-      "name": "Ada Lovelace",
-      "number": "39-44-5323523",
-      "id": 2
+      "name": "Mirka",
+      "number": "34563456",
+      "id": 12
     },
     {
-      "name": "Dan Abramov",
-      "number": "12-43-234345",
-      "id": 3
-    },
-    {
-      "name": "Mary Poppendieck",
-      "number": "39-23-6423122",
-      "id": 4
-    },
-    {
-      "name": "Jussi Rajaniemi",
-      "number": "046 811 8508",
-      "id": 5
-    },
-    {
-      "name": "Mirka Rajaniemi",
-      "number": "046 8111 000",
-      "id": 6
-    },
-    {
-      "name": "Elmo Rajaniemi",
-      "number": "046 121212",
-      "id": 7
+      "name": "Iiris",
+      "number": "3456456",
+      "id": 15
     }
   ]
 }
