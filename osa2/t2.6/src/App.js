@@ -1,41 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import Form from './components/Form';
+import Filter from './components/Filter';
+import Results from './components/Results';
 import personService from './services/persons';
-
-const Filter = ({ search, handleSearch }) => {
-  return (
-    <p>
-      filter show with <input value={search} onChange={handleSearch} />
-    </p>
-  );
-};
-
-const Results = ({ rows }) => {
-  return <ul>{rows}</ul>;
-};
-
-const Form = ({
-  addName,
-  newName,
-  handleNameChange,
-  newNumber,
-  handleNumberChange
-}) => {
-  return (
-    <form onSubmit={addName}>
-      <div>
-        Name: <input value={newName} onChange={handleNameChange} />
-      </div>
-      <div>
-        Number: <input value={newNumber} onChange={handleNumberChange} />
-      </div>
-      <div>
-        <button className="btn btn-primary" type="submit">
-          Add
-        </button>
-      </div>
-    </form>
-  );
-};
 
 function App() {
   const [persons, setPersons] = useState([]);
@@ -57,9 +24,24 @@ function App() {
   const addName = event => {
     event.preventDefault();
     const res = persons.find(x => x.name === newName);
-    console.log('Add Name: ', persons.indexOf(res), newName, persons);
     if (persons.indexOf(res) > -1) {
-      window.alert(`${newName} is already added to phonebook`);
+      if (
+        window.confirm(
+          newName +
+            ' is already added to phonebook, replace the old number with a new one?'
+        )
+      ) {
+        personService
+          .updatePerson(res.id, { name: newName, number: newNumber })
+          .then(res => {
+            setPersons(persons.map(p => (p.id !== res.id ? p : res)));
+            setNewName('');
+            setNewNumber('');
+          })
+          .catch(err => {
+            console.log('updatePerson ', err);
+          });
+      }
     } else {
       const newPerson = {
         name: newName,
@@ -84,7 +66,10 @@ function App() {
       return persons.map(person => (
         <li key={person.id}>
           {person.name} {person.number}
-          <button onClick={() => handleDeleteNumber(person.id, person.name)}>
+          <button
+            className="btn btn-primary btn-sm m-1"
+            onClick={() => handleDeleteNumber(person.id, person.name)}
+          >
             delete
           </button>
         </li>
@@ -96,7 +81,7 @@ function App() {
         <li key={person.id}>
           {person.name} {person.number}
           <button
-            className="btn btn-primary btn-sm"
+            className="btn btn-primary btn-sm m-1"
             onClick={() => handleDeleteNumber(person.id, person.name)}
           >
             delete
@@ -134,7 +119,7 @@ function App() {
           console.log('person ', id, ' deleted');
         })
         .catch(err => {
-          console.log(err);
+          console.log('deletePerson ', err);
         });
     }
   };

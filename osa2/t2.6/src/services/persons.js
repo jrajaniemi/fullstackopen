@@ -10,7 +10,7 @@ const addPerson = newPerson => {
 };
 
 const updatePerson = (id, updatedPerson) => {
-  return axios.put(baseUrl + '/' + id, updatePerson).then(res => res.data);
+  return axios.put(baseUrl + '/' + id, updatedPerson).then(res => res.data);
 };
 
 const deletePerson = id => {
