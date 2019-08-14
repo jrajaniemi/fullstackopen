@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
 
-let names = [
+let persons = [
   {
     name: 'Jussi Rajaniemi',
     number: '040-1234356',
@@ -33,27 +33,34 @@ app.get('/', (req, res) => {
 });
 
 app.get('/info', (req, res) => {
-  const qty = names.length;
+  const qty = persons.length;
   res.send(
     '<p>Phonebook has info for ' + qty + ' people</p><p>' + new Date() + '</p>'
   );
 });
 
-// Get all names
+// Get all persons
 app.get('/api/persons', (req, res) => {
-  res.json(names);
+  res.json(persons);
 });
 
 // Get person by id
 app.get('/api/persons/:id', (req, res) => {
   const id = Number(req.params.id);
-  const person = names.find(n => n.id === id);
+  const person = persons.find(n => n.id === id);
   console.log(person);
   if (person) {
     res.json(person);
   } else {
     res.status(404).end();
   }
+});
+
+// Delete person by id
+app.delete('/api/persons/:id', (req, res) => {
+  const id = Number(req.params.id);
+  persons = persons.filter(person => person.id !== id);
+  res.status(204).end();
 });
 
 const PORT = 3001;
