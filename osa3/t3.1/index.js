@@ -1,8 +1,16 @@
 const express = require('express');
+const morgan = require('morgan');
 const app = express();
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
+
+const requestLogger = (req, res, next) => {
+  morgan('tiny');
+
+  next();
+};
+app.use(morgan('tiny'));
 
 let persons = [
   {
@@ -78,10 +86,7 @@ app.post('/api/persons', (req, res) => {
 
   // if(person.find(p => p.name ))
   const p = persons.filter(p => new RegExp(body.name, 'i').test(p.name));
-  console.log('check', p, typeof p, p.length);
   if (p.length > 0) {
-    console.log('check in if', p, typeof p, p.length);
-
     return res.status(400).json({ error: 'Person is available' });
   }
   const newPerson = {
@@ -91,6 +96,12 @@ app.post('/api/persons', (req, res) => {
   };
   persons = persons.concat(newPerson);
 });
+
+const unknownEndpoint = (request, response) => {
+  response.status(404).send({ error: 'unknown endpoint' });
+};
+
+app.use(unknownEndpoint);
 
 const PORT = 3001;
 app.listen(PORT, () => {
