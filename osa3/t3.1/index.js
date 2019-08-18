@@ -27,6 +27,12 @@ let persons = [
   }
 ];
 
+const generateId = () => {
+  // const maxId = persons.length > 0 ? Math.max(...persons.map(n => n.id)) : 0;
+  // return maxId + 1;
+  return Math.floor(Math.random() * 1000000000000000);
+};
+
 // root
 app.get('/', (req, res) => {
   res.send('<h1>Node.js phonebook!</h1>');
@@ -61,6 +67,29 @@ app.delete('/api/persons/:id', (req, res) => {
   const id = Number(req.params.id);
   persons = persons.filter(person => person.id !== id);
   res.status(204).end();
+});
+
+// Add new person
+app.post('/api/persons', (req, res) => {
+  const body = req.body;
+  if (!body.name || !body.number) {
+    return res.status(400).json({ error: 'Person name or number missing' });
+  }
+
+  // if(person.find(p => p.name ))
+  const p = persons.filter(p => new RegExp(body.name, 'i').test(p.name));
+  console.log('check', p, typeof p, p.length);
+  if (p.length > 0) {
+    console.log('check in if', p, typeof p, p.length);
+
+    return res.status(400).json({ error: 'Person is available' });
+  }
+  const newPerson = {
+    name: body.name,
+    number: body.number,
+    id: generateId()
+  };
+  persons = persons.concat(newPerson);
 });
 
 const PORT = 3001;
