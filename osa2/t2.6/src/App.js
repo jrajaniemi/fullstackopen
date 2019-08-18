@@ -37,6 +37,7 @@ function App() {
         personService
           .updatePerson(res.id, { name: newName, number: newNumber })
           .then(res => {
+            console.log(res, typeof res);
             setPersons(persons.map(p => (p.id !== res.id ? p : res)));
             setNewName('');
             setNewNumber('');
