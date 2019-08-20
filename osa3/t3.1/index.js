@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.static('frontend'));
 
 morgan.token('body', (req, res) => {
   return JSON.stringify(req.body);
