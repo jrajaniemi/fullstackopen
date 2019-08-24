@@ -7,9 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "watch": "nodemon index.js",
-    "build:ui": "rm -rf frontend ; cd ../../osa2/t2.6/ && npm run build --prod && cp -r build/ ../../osa3/t3.1/frontend",
-    "deploy": "git push heroku master",
-    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy",
+    "build:ui": "rm -rf frontend ; cd ../../osa2/t2.6/ && npm run build --prod && cp -r build/ ../../osa3/t3.1/frontend && echo 'build done'",
+    "deploy": "echo 'push heroku master' && git push heroku master",
+    "deploy:full": "npm run build:ui && echo 'git add' && git add . && echo 'commit' && git commit -m uibuild && echo 'deploy' && npm run deploy",
     "logs:prod": "heroku logs --tail"
   },
   "proxy": "http://localhost:3001",

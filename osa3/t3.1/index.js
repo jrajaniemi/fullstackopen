@@ -99,6 +99,14 @@ app.post('/api/persons', (req, res) => {
     id: generateId()
   };
   persons = persons.concat(newPerson);
+  console.log(req.body);
+});
+
+// Update person information
+app.put('/api/persons/:id', (req, res) => {
+  const id = Number(req.params.id);
+
+  console.log(req.body.name, req.body.number, id);
 });
 
 const unknownEndpoint = (request, response) => {
@@ -107,7 +115,7 @@ const unknownEndpoint = (request, response) => {
 
 app.use(unknownEndpoint);
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

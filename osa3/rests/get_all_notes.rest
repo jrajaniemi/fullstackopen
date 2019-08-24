@@ -10,10 +10,52 @@ DELETE http://localhost:3001/api/persons/2
 
 ### 
 
+PUT http://localhost:3001/api/persons/1 HTTP/1.1
+content-type: application/json
+
+{
+  "name": "Jussi Rajaniemi",
+  "number": "12341234"
+}
+
+### 
+
 POST http://localhost:3001/api/persons/ HTTP/1.1
 content-type: application/json
 
 {
-  "name": "Mika Rajaniemi",
+  "name": "Jani Rajaniemi",
   "number": "0461234567"
+}
+
+### 
+
+POST https://fast-refuge-10754.herokuapp.com/api/persons/ HTTP/1.1
+content-type: application/json
+
+{
+  "name": "Mirka Rajaniemi",
+  "number": "0461234567"
+}
+
+### 
+
+GET https://fast-refuge-10754.herokuapp.com/api/persons
+
+###
+
+GET https://fast-refuge-10754.herokuapp.com/api/persons/2
+
+###
+
+DELETE https://fast-refuge-10754.herokuapp.com/api/persons/2
+
+### 
+
+PUT https://fast-refuge-10754.herokuapp.com/api/persons/150295429946117 HTTP/1.1
+content-type: application/json
+
+{
+  "name": "Mirka Rajaniemi",
+  "number": "1234"
 }
