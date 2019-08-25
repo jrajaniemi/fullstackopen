@@ -59,3 +59,8 @@ content-type: application/json
   "name": "Mirka Rajaniemi",
   "number": "1234"
 }
+
+# MongoDB
+# rajanjus
+# etdeK28b0i9ky9CP
+# mongodb+srv://rajanjus:<password>@cluster0-ah1fb.mongodb.net/test?retryWrites=true&w=majority
